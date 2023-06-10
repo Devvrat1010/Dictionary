@@ -1,0 +1,51 @@
+#meaning{
+    height: fit-content;
+    background-color: aqua;
+}
+
+.input-word{
+    display: flex;
+    background-color: rgb(233, 232, 232);
+    border-radius:15px ;
+    box-shadow: 1px 1px 2px 0px;
+    height: 100px;
+    width: 300px;
+    justify-content: center;
+    align-items: center;
+}
+.input-word:hover{
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 0px;
+    transition: 200ms;
+}
+.word1{
+    height: 50px;
+    width: 100px;
+    font-size: 25px;
+    padding: 0;
+    margin: 0;
+    border-width: 0;
+    background-color: bisque;
+}
+.word1:hover{
+    cursor: pointer;
+}
+
+
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: aqua;
+    height: 300px;
+}
+.means{
+    background-color: greenyellow;
+    width: fit-content;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 5px;
+    height: 20px;
+    margin-top: 10px;
+
+}
