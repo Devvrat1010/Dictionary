@@ -1,59 +1,135 @@
 const word=document.getElementById("word")
 const means=document.getElementById("meaning")
-// console.log(word.value)
 const btn=document.getElementById("btn")
-const box=document.getElementById("input")
-box.addEventListener('click', function(){
-//     e.preventDefault();
-//     box.style.borderColor="Blue"
-    box.classList
-});
+const image=document.getElementsByClassName("image")[0]
+const body=document.getElementsByTagName("body")[0]
+const theme=document.getElementsByClassName("change-theme")[0]
+const slider=document.getElementsByClassName("slider")[0]
+const image2=document.getElementsByClassName("sun")[0]
+const notHeader=document.getElementsByClassName("not-header")[0]
+const wordAgain=document.getElementsByClassName("word-again")[0]
 
-// 0.meanings[0].definitions[0].definition
-function meaning(word){
-    const mean=fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/`+word)
-            .then((res)=>res.json())
-            .then((res)=>res[0].meanings[0].definitions)
-            // .then((res)=>res)
-            .then((res)=>{
-                console.log(res)
-                let myDiv=document.getElementById("meaning")
-                for (let i=0;i<res.length;i++){
-                    let newDiv=document.createElement("div")
-                    newDiv.classList.add("means")
-                    newDiv.textContent=res[i].definition
-                    myDiv.append(newDiv)
-                }
-                
-            })
+console.log(image)
+let count=0
+theme.addEventListener("click",()=>{
+    console.log(count)
+    if (count%2==0){
+        body.classList.add("dark")
+        body.classList.remove("light")
+        slider.classList.add("slider-active")
+        slider.classList.remove("slider-deactive")
+        image2.classList.add("moon")
+        image2.classList.remove("sun")
+        theme.style.backgroundColor="black"
+        theme.style.boxShadow="0px 0px 5px 0px rgb(164, 69, 237)"
+        wordAgain.style.color="black"
+    }
+    else{
+        body.classList.add("light")
+        body.classList.remove("dark")
+        image2.classList.add("sun")
+        image2.classList.remove("moon")
+        slider.classList.add("slider-deactive")
+        slider.classList.remove("slider-active")
+        theme.style.backgroundColor="white"
+        theme.style.boxShadow="0px 0px 5px 0px rgb(164, 69, 237)"
+    }
+    count+=1
+})
 
-    
-function pronounce(word){
-    const listen=fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/`+word)
-        .then((res)=>res.json())
-        .then((res)=>res[0].phonetics[1].audio)
-        .then((res)=>new Audio(res))
-        .then((res)=>means.inner=res.play())
+async function meaning(word){
 
-}   
-                
-                // .then()
-    // voice.play    
+    try{
+        const mean=await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/`+word)
+        let res=await mean.json()
+        const curr=res
+        res=res[0].meanings[0].definitions
+        console.log(res)
+        
+        const wordAgain=document.getElementsByClassName("word-again")[0]
+        wordAgain.textContent=word
 
-                // .then((res)=>{means.innerText=res})
+        const phonetic=document.getElementsByClassName("word-phonetic")[0]
+        phonetic.textContent=curr[0].phonetic
 
-    // const meanJson=mean.json()
-    console.log(mean.json)
-    // const phonetic
+        const listen=document.getElementsByClassName("listen")[0]
+        listen.style.backgroundImage="url('https://em-content.zobj.net/thumbs/120/microsoft/319/speaker-high-volume_1f50a.png')"
 
-    // .then(res=>res.json())0.phonetic
-    // .then(console.log(res))
+        const wordInfo=document.getElementsByClassName("word-info")[0]
+        wordInfo.style.backgroundColor="aliceblue"
+        
+        const wordPhonetic=document.getElementsByClassName("word-phonetic")[0]
+        wordPhonetic.style.backgroundColor="aliceblue"
 
-    
+        listen.addEventListener("click",()=>{
+            pronounce(word)
+        })
+
+        const meanings=curr[0].meanings
+        console.log(meanings)
+        console.log(meanings.length)
+        for (let i=0;i<meanings.length;i++){
+            let newDiv=document.createElement("div")
+            newDiv.classList.add("meaning-type")
+
+            let type=document.createElement("div") 
+            type.classList.add("type")
+            type.textContent=meanings[i].partOfSpeech
+            type.innerHTML+="<hr>"
+            means.append(newDiv)
+            newDiv.appendChild(type)
+
+            
+            for (let j=0;j<meanings[i].definitions.length;j++){
+                let newDiv2=document.createElement("div")
+                newDiv2.classList.add("means")
+                newDiv2.textContent=meanings[i].definitions[j].definition
+                newDiv.appendChild(newDiv2)
+            }
+        }
+        
+        
+    }
+    catch (error){
+        console.log("error: ",error)
+        let newDiv=document.createElement("div")
+        newDiv.classList.add("means")
+        newDiv.textContent="hehe no meaning found"
+        means.append(newDiv)
+    }
 }
-btn.addEventListener("click",()=>{
-    // meaning
-    console.log(word.value)
-    const i=2
-    meaning(word.value,i)
+
+async function pronounce(word){          
+        const hear=await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/`+word)
+        let response=await hear.json()
+        response=response[0].phonetics[0].audio
+        response=new Audio(response)
+        response.play()
+}   
+    
+
+
+
+// image.addEventListener("click",()=>{    
+//     meaning(word.value)
+// })
+word.addEventListener("keydown",(event)=>{
+    if (event.key=="Enter"){
+        means.replaceChildren()
+        meaning(word.value)
+    }
+    // if (event.key=="m"){
+    //     // means.replaceChildren()
+    //     pronounce(word.value)
+    // }
+
+})
+body.addEventListener("keydown",(event)=>{
+    if (event.key=="m"){
+        pronounce(word.value)
+    }
+})
+
+notHeader.addEventListener("click",(event)=>{
+    theme.style.boxShadow="none"
 })
