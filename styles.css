@@ -1,8 +1,22 @@
-
+a:visited{
+    color: gray;
+}
 body{
     font-family: 'Roboto', sans-serif;
     font-weight: bolder;
     font-size: 30px;
+    /* width: fit-content; */
+    margin: auto;
+    height: 100vh;
+}
+li{
+    border-width: 0px;
+    border-radius: 100%;
+    padding: 2px;
+    color: rgb(164, 69, 237);
+}
+ul{
+    margin: 0;
 }
 
 
@@ -15,6 +29,20 @@ body{
     display: flex;
     align-items: center;
     border-radius: 30px;
+}
+.bullet{
+
+    /* align-self:  */
+    /* position: relative; */
+    /* bottom: 500%; */
+    /* padding-top: 10px; */
+    /* margin-top: 50px; */
+    position: relative;
+    top: 35px;
+    height: 6px;
+    width: 6px;
+    border-radius: 100%;
+    background-color: rgb(164, 69, 237);
 }
 
 
@@ -49,10 +77,35 @@ body{
     margin-top: 0px;
     font-size: 17px;
     font-weight: 100;
-    margin-left: 15px;
+    margin-left: 55px;
     color: rgb(158, 157, 157);
 
 }
+.footer{
+    align-self: flex-start;
+    font-size: 15px;
+    font-weight: 100;
+    color: gray;
+    /* margin-top: 60px; */
+    /* margin-bottom: 60px; */
+    position: absolute;
+    bottom: 60px;
+    align-self: flex-start;
+    /* justify-self: flex-end; */
+}
+.self-info{
+    height: 20px;
+    width: 100%;
+    background-color: black;
+    position: sticky;
+    top: 100%;
+    /* position: absolute; */
+    /* position: relative; */
+}
+/* .footer:focus{
+    color: aquamarine;
+} */
+
 .header{
     margin: auto;
     margin-top: 50px;
@@ -60,12 +113,23 @@ body{
     display: flex;
     margin-bottom: 50px;
     justify-content: space-between;
-
+    
 }
 
-
+.init{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center ;
+    font-size: 17px;
+    font-weight: 100;
+    color: gray;
+    width: 100%;
+    position: relative;
+    bottom: 150px;
+}
 .image{
-
+    
     height: 40px;
     position: absolute;
     right: 10px;
@@ -81,6 +145,7 @@ body{
     border-style:solid ;
     border-width: 1px;
     border-color: black;
+    box-shadow: 1px 1px 5px 0px rgb(164, 69, 237);; 
 }
 
 .input-word{
@@ -91,10 +156,30 @@ body{
     border-radius: 15px;
     background-color: rgb(244, 244, 244);
 }
+.indiv-word:hover{
+    cursor: pointer;
+}
+
 .light{
     transition: 500ms;
     background-color: white;
     color: black;
+}
+.links{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+.links > div{
+    height: fit-content;
+
+}
+.links > div:hover{
+    cursor: pointer;
+    transition: 400ms;
+    text-decoration: underline;
 }
 .listen{
     height: 100px;
@@ -114,17 +199,41 @@ body{
     align-items: center;
     /* width: fit-content; */
     flex-direction: column;
+    padding-bottom: 100px;
+    width: fit-content;
 }
 .means{
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-left: 6px;
     width: fit-content;
     padding: 10px;    
     border-radius: 5px;
     height: fit-content;
     margin-top: 10px;
     font-size: 20px;
+    font-weight: 500;
+    color: black;
 }
-.meaning-type{
-    margin-top: 30px;
+.meaning-main{
+    font-size: 20px;
+    font-weight: 100;
+    color: gray;
+    /* cursor: pointer; */
+}
+.more{
+    transition: 300ms;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 500;
+    font-style: italic;
+    color: rgb(145, 123, 93);
+}
+.more:hover{
+    text-decoration: underline;
+    cursor: pointer;
+    color: rgb(164, 69, 237);
 }
 .moon{
     transition: 500ms;
@@ -151,6 +260,7 @@ body{
     border-radius: 100%;
 }
 
+
 .slider-active{
     /* background-image- */
     /* font-weight: ; */
@@ -172,6 +282,35 @@ body{
 }
 .site{
     margin-left: 10px;
+}
+.synonymsWrapper{
+    display: flex;
+    /* flex-direction: column; */
+}
+.synonyms{
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: 100;
+    color: gray;
+}
+.synonyms-text{
+    
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.synonyms-word{
+    font-size: 20px;
+    font-weight: 500;
+    color: rgb(164, 69, 237);
+    width: fit-content;
+}
+.synonyms-word:hover{
+    transition: 300ms;
+    color:rgb(101, 159, 13) ;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .type{
@@ -226,15 +365,13 @@ body{
 }
 .word-phonetic{
     font-size: 30px;
-    /* margin-left: 10px; */
+    margin-bottom: 30px;
     padding: 0 0 10px 10px;
-    /* background-color: aliceblue; */
     height: fit-content;
     color: rgb(164, 69, 237);
     width: 790px;
     border-radius: 0 0 10px 10px;
 }
-
 
 
 
@@ -246,8 +383,11 @@ body{
     display: flex;
     flex-direction: column;
     width: 800px;
-    gap: 60px;
+    gap: 50px;
     justify-content: space-around;
+}
+#text{
+    width: 800px;
 }
 .speaker:hover{
     cursor: pointer;
