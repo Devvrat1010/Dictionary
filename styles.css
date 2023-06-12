@@ -44,6 +44,15 @@ body{
     background-color: black;
     color: white;
 }
+
+.example{
+    margin-top: 0px;
+    font-size: 17px;
+    font-weight: 100;
+    margin-left: 15px;
+    color: rgb(158, 157, 157);
+
+}
 .header{
     margin: auto;
     margin-top: 50px;
@@ -143,6 +152,8 @@ body{
 }
 
 .slider-active{
+    /* background-image- */
+    /* font-weight: ; */
     transition: 300ms;
     transform: translateX(30px);
 }
