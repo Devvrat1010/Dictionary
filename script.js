@@ -8,6 +8,8 @@ const slider=document.getElementsByClassName("slider")[0]
 const image2=document.getElementsByClassName("sun")[0]
 const notHeader=document.getElementsByClassName("not-header")[0]
 const wordAgain=document.getElementsByClassName("word-again")[0]
+const main=document.getElementsByClassName("main")[0]
+const init=document.getElementsByClassName("init")[0]
 
 console.log(image)
 let count=0
@@ -38,13 +40,23 @@ theme.addEventListener("click",()=>{
 })
 
 async function meaning(word){
-
+    let alpha="abcdefghijklmnopqrstuvwxyz"
+    means.replaceChildren()
+    let finalWord=""
+    for (let i=0;i<word.length;i++){
+        console.log(typeof(word[i]))
+        if (alpha.includes(word[i].toLowerCase()) || word[i]==" "){
+            finalWord+=word[i]
+        }
+    }
+    word=finalWord
     try{
+        const currentWord=document.getElementById("word")
+        currentWord.value=word
         const mean=await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/`+word)
         let res=await mean.json()
         const curr=res
         res=res[0].meanings[0].definitions
-        console.log(res)
         
         const wordAgain=document.getElementsByClassName("word-again")[0]
         wordAgain.textContent=word
@@ -84,33 +96,46 @@ async function meaning(word){
             let meaningMain=document.createElement("div")
             meaningMain.classList.add("meaning-main")
             meaningMain.textContent="Meaning"
-            meaningMain.style.fontSize="20px"
-            meaningMain.style.fontWeight="100"
-            meaningMain.style.color="gray"
-            newDiv.appendChild(meaningMain)
-            
-            for (let j=0;j<meanings[i].definitions.length;j++){
-                let newDiv2=document.createElement("div")
-                newDiv2.classList.add("means")
-                newDiv2.textContent=meanings[i].definitions[j].definition
-                newDiv.appendChild(newDiv2)
 
-                try{
-                    if (meanings[i].definitions[j].example==undefined){
-                    let example=document.createElement("div")
-                    example.innerHTML=`" `
-                    example.classList.add("example")
-                    example.textContent+=meanings[i].definitions[j].example
-                    example.innerHTML+=` "`
-                    newDiv.appendChild(example)
-                    
-                }
-                catch(error){
-                    console.log("error ",error)
-                }
+            let more="false"
+            newDiv.appendChild(meaningMain)
+            let meanLength=meanings[i].definitions.length
+            console.log("mean length ")
+            console.log(meanLength)
+            if (meanings[i].definitions.length>3){
+                displayLength=3
+                more="true"
             }
-        }
-        
+            else{
+                more="false"
+                displayLength=meanings[i].definitions.length
+            }
+
+            for (let j=0;j<displayLength;j++){
+                showMeaning(i,meanings,newDiv,j)
+     
+            }
+            if (more=="true"){
+                let moreDiv=document.createElement("div")
+                moreDiv.classList.add("more")
+                moreDiv.textContent="Show More"
+                newDiv.appendChild(moreDiv)
+                moreDiv.addEventListener("click",()=>{
+                    newDiv.removeChild(moreDiv)
+                    for (let k=3;k<meanings[i].definitions.length;k++){
+                        showMeaning(i,meanings,newDiv,k)   
+                    }
+                    // synonyms(i,meanings,newDiv)
+                    if (meanings[i].synonyms.length>0){
+                        synonyms(i,meanings,newDiv)
+                    }
+                    
+                })
+            }
+            if (meanings[i].synonyms.length>0){
+                synonyms(i,meanings,newDiv)
+            }
+        }        
         
     }
     catch (error){
@@ -123,22 +148,101 @@ async function meaning(word){
         let newDiv=document.createElement("div")
         newDiv.classList.add("means")
         
-        if (mainWord.value.toLowerCase()=="kumail"){
-            newDiv.textContent="Aatankwadi 💣"
-            newDiv.style.color="green"
-            newDiv.style.fontSize="50px"
+        // if (mainWord.value.toLowerCase()=="kumail"){
+        //     newDiv.textContent="Aatankwadi 💣"
+        //     newDiv.style.color="green"
+        //     newDiv.style.fontSize="50px"
 
-            let bombDiv=document.createElement("div")
-            bombDiv.classList.add("bomb")
-            means.append(newDiv)
-            return
-        }
+        //     let bombDiv=document.createElement("div")
+        //     bombDiv.classList.add("bomb")
+        //     means.append(newDiv)
+        //     return
+        // }
 
         newDiv.textContent="Whoops !!! Word does not exist in the dictionary"
         newDiv.style.color="red"
         newDiv.style.fontWeight="100"
         means.append(newDiv)
     }
+}
+
+function synonyms(i,meanings,newDiv,j){
+    let synonymsWrapper=document.createElement("div")
+    synonymsWrapper.classList.add("synonyms-wrapper")
+
+    let synonyms=document.createElement("div")
+    synonyms.classList.add("synonyms")
+    
+    synonyms.textContent="Synonyms"
+    let arr=meanings[i].synonyms
+    let stri=meanings[i].synonyms.toString()
+    
+    // 
+    let synonymsText=individualWord(meanings,i)
+    synonymsWrapper.appendChild(synonyms)
+    synonymsWrapper.appendChild(synonymsText)
+    newDiv.appendChild(synonymsWrapper)
+    
+}
+
+function individualWord(meanings,i){
+
+    let synonymsText=document.createElement("div")
+    synonymsText.classList.add("synonyms-text")
+    for (let x=0;x<meanings[i].synonyms.length;x++){
+        let synonymsWord=document.createElement("div")
+        synonymsWord.classList.add("synonyms-word")
+        synonymsWord.textContent=meanings[i].synonyms[x]
+        synonymsText.appendChild(synonymsWord)
+    
+        synonymsWord.addEventListener("click",()=>{
+            console.log("synonyms word")
+            console.log(synonymsWord.innerText)
+    
+            meaning(synonymsWord.innerText.toString())
+        })
+    }
+    return synonymsText
+}
+
+function showMeaning(i,meanings,newDiv,j){
+    try{
+        const meaningType=document.getElementsByClassName("meaning-type")[i]
+        let synonymsWrapper=document.getElementsByClassName("synonyms-wrapper")[i]
+        meaningType.removeChild(synonymsWrapper)
+    }
+    catch(error){
+        console.log("error")
+    }
+    let newDiv2=document.createElement("div")
+    
+    newDiv2.classList.add("means")
+    let arr=meanings[i].definitions[j].definition.split(" ")
+    console.log("arr")
+    console.log(arr)
+    for (let x=0;x<arr.length;x++){
+        let indivWord=document.createElement("div")
+        indivWord.classList.add("indiv-word")
+        indivWord.textContent=arr[x]
+        newDiv2.appendChild(indivWord)
+        indivWord.addEventListener("click",()=>{
+            meaning(indivWord.innerText.toString())
+        })   
+    }
+    let meaningWrapper=document.createElement("div")
+    meaningWrapper.classList.add("meaning-wrapper")
+
+    let bullet=document.createElement("div")
+    bullet.classList.add("bullet")
+    meaningWrapper.appendChild(bullet)
+    meaningWrapper.appendChild(newDiv2)
+    newDiv.appendChild(meaningWrapper)
+    
+    let example=document.createElement("div")
+    example.classList.add("example")
+    example.textContent=meanings[i].definitions[j].example
+    newDiv.appendChild(example)
+
 }
 
 async function pronounce(word){          
@@ -148,25 +252,21 @@ async function pronounce(word){
         response=new Audio(response)
         response.play()
 }   
+
+image.addEventListener("click",()=>{    
+    image.style.boxShadow="0px 0px 5px 0px rgb(164, 69, 237)"
+    main.removeChild(init)
+    meaning(word.value)
     
-
-
-
-// image.addEventListener("click",()=>{    
-//     meaning(word.value)
-// })
+})
 word.addEventListener("keydown",(event)=>{
     if (event.key=="Enter"){
-        means.replaceChildren()
+        main.removeChild(init)
         meaning(word.value)
     }
-    // if (event.key=="m"){
-    //     // means.replaceChildren()
-    //     pronounce(word.value)
-    // }
-
 })
 body.addEventListener("keydown",(event)=>{
+    // main.removeChildinti
     if (event.key=="m"){
         pronounce(word.value)
     }
@@ -174,4 +274,5 @@ body.addEventListener("keydown",(event)=>{
 
 notHeader.addEventListener("click",(event)=>{
     theme.style.boxShadow="none"
+    // image.style.boxShadow="none"
 })
