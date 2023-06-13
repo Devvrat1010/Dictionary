@@ -25,6 +25,7 @@ theme.addEventListener("click",()=>{
         theme.style.backgroundColor="black"
         theme.style.boxShadow="0px 0px 5px 0px rgb(164, 69, 237)"
         wordAgain.style.color="black"
+        body.style.color="white"
     }
     else{
         body.classList.add("light")
@@ -35,6 +36,7 @@ theme.addEventListener("click",()=>{
         slider.classList.remove("slider-active")
         theme.style.backgroundColor="white"
         theme.style.boxShadow="0px 0px 5px 0px rgb(164, 69, 237)"
+//         body.style.color="white"
     }
     count+=1
 })
