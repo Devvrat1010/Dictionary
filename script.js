@@ -47,7 +47,6 @@ function change_theme(){
             else{
                 wordPhonetic.style.backgroundColor="#e8e8e8"
                 wordInfo.style.backgroundColor="#e8e8e8"
-                wordPnfo.style.backgroundColor="#3b3b3b"
             }
             indivWord[i].style.color="black"
         }
