@@ -10,31 +10,54 @@ const notHeader=document.getElementsByClassName("not-header")[0]
 const wordAgain=document.getElementsByClassName("word-again")[0]
 const main=document.getElementsByClassName("main")[0]
 const init=document.getElementsByClassName("init")[0]
+const changeFont=document.getElementsByClassName("change-font")[0]
+const font=body.style.fontFamily
 
-console.log(image)
-let count=0
+console.log("document.style.fontFamily")
 
-function change_theme(c){
 
+
+function change_theme(){
+    const word1=document.getElementsByClassName("word1")[0]
+    const wordInfo=document.getElementsByClassName("word-info")[0]
+    const wordPhonetic=document.getElementsByClassName("word-phonetic")[0]
     const indivWord=document.getElementsByClassName("indiv-word")
-    if (c==0){   
+    
+    if (body.classList.contains("dark")){   
         for (let i=0;i<indivWord.length;i++){
-            console.log("indivWord[i]")
-            console.log(indivWord[i])
+            word1.style.backgroundColor="#3b3b3b"
+            wordAgain.style.color="white"
             indivWord[i].style.color="white"
+            if (main.contains(init)){
+                continue
+            }
+            else{
+                wordPhonetic.style.backgroundColor="#3b3b3b"
+                wordInfo.style.backgroundColor="#3b3b3b"
+            }
         }
     }
     else{
         for (let i=0;i<indivWord.length;i++){
+            word1.style.backgroundColor="#e8e8e8"
+            wordAgain.style.color="black"
+            if (main.contains(init)){
+                continue
+            }
+            else{
+                wordPhonetic.style.backgroundColor="#e8e8e8"
+                wordInfo.style.backgroundColor="#e8e8e8"
+                wordPnfo.style.backgroundColor="#3b3b3b"
+            }
             indivWord[i].style.color="black"
         }
     }
-    return
 }
-theme.addEventListener("click",()=>{
-    console.log(count)
+// const sex=change_theme(1)
+theme.addEventListener("click",function changing_theme(){
+
     const indivWord=document.getElementsByClassName("indiv-word")
-    if (count%2==0){
+    if (body.classList.contains("light")){
         body.classList.add("dark")
         body.classList.remove("light")
         slider.classList.add("slider-active")
@@ -44,7 +67,7 @@ theme.addEventListener("click",()=>{
         theme.style.backgroundColor="black"
         theme.style.boxShadow="0px 0px 5px 0px rgb(164, 69, 237)"
         wordAgain.style.color="black"
-        change_theme(0)
+        change_theme()
     }
     else{
         body.classList.add("light")
@@ -55,12 +78,12 @@ theme.addEventListener("click",()=>{
         slider.classList.remove("slider-active")
         theme.style.backgroundColor="white"
         theme.style.boxShadow="0px 0px 5px 0px rgb(164, 69, 237)"
-        change_theme(1)
-}
-count+=1
+        change_theme()
+    }
 })
 
 async function meaning(word){
+    
     let alpha="abcdefghijklmnopqrstuvwxyz"
     means.replaceChildren()
     let finalWord=""
@@ -70,6 +93,7 @@ async function meaning(word){
             finalWord+=word[i]
         }
     }
+
     word=finalWord
     try{
         const currentWord=document.getElementById("word")
@@ -157,7 +181,6 @@ async function meaning(word){
                 synonyms(i,meanings,newDiv)
             }
         }        
-        
     }
     catch (error){
         const mainWord=document.getElementById("word")
@@ -203,6 +226,8 @@ function synonyms(i,meanings,newDiv,j){
     synonymsWrapper.appendChild(synonyms)
     synonymsWrapper.appendChild(synonymsText)
     newDiv.appendChild(synonymsWrapper)
+    change_theme()
+
     
 }
 
@@ -263,6 +288,8 @@ function showMeaning(i,meanings,newDiv,j){
     example.classList.add("example")
     example.textContent=meanings[i].definitions[j].example
     newDiv.appendChild(example)
+    change_theme()
+
 
 }
 
