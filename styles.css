@@ -1,93 +1,400 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="styles.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-        <script src="script.js" async defer></script>
-    </head>
-    <body>
+a:visited{
+    color: gray;
+}
+body{
+    font-family: 'Roboto', sans-serif;
+    font-weight: bolder;
+    font-size: 30px;
+    /* width: fit-content; */
+    margin: auto;
+    height: 100vh;
+}
+li{
+    border-width: 0px;
+    border-radius: 100%;
+    padding: 2px;
+    color: rgb(164, 69, 237);
+}
+ul{
+    margin: 0;
+}
 
-        <div class="main">
-            <div class="header">
-                <div class="site">
-                    <a href="/">
-                        <img src="https://dictionary-web-app-fem.netlify.app/assets/logo-1ad79f67.svg" alt="">
-                    </a>
-                </div>
-                <div class="change-theme">
-                    <div class="btn">
-                        <div class="slider">
+
+.books{
+    font-size: 90px;
+}
+.btn{
+    padding:0 5px 0 5px;
+    background-color: rgb(164, 69, 237);
+    width: 50px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    border-radius: 30px;
+}
+.bullet{
+
+    /* align-self:  */
+    /* position: relative; */
+    /* bottom: 500%; */
+    /* padding-top: 10px; */
+    /* margin-top: 50px; */
+    position: relative;
+    top: 35px;
+    height: 6px;
+    width: 6px;
+    border-radius: 100%;
+    background-color: rgb(164, 69, 237);
+}
+
+
+.change-theme{
+    margin-right: 10px;
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    height: 35px;
+    padding: 7px;
+    padding-left: 14px;
+    border-radius: 7px;  
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 5px 0px rgb(164, 69, 237);
+}
+
+.change-theme:hover{
+    cursor: pointer;
+}
+.change-theme:focus{
+    box-shadow: 0px 0px 5px 0px rgb(164, 69, 237);
+    /* outline: none; */
+}
+
+.dark{
+    transition: 500ms;
+    background-color: black;
+    color: white;
+}
+
+.example{
+    margin-top: 0px;
+    font-size: 17px;
+    font-weight: 100;
+    margin-left: 55px;
+    color: rgb(158, 157, 157);
+
+}
+.footer{
+    align-self: flex-start;
+    font-size: 15px;
+    font-weight: 100;
+    color: gray;
+    /* margin-top: 60px; */
+    /* margin-bottom: 60px; */
+    position: absolute;
+    bottom: 60px;
+    align-self: flex-start;
+    /* justify-self: flex-end; */
+}
+.self-info{
+    height: 20px;
+    width: 100%;
+    background-color: black;
+    position: sticky;
+    top: 100%;
+    /* position: absolute; */
+    /* position: relative; */
+}
+/* .footer:focus{
+    color: aquamarine;
+} */
+
+.header{
+    margin: auto;
+    margin-top: 50px;
+    width: 800px ;
+    display: flex;
+    margin-bottom: 50px;
+    justify-content: space-between;
     
-                        </div>
-                    </div>
-                    <div class="sun">
-                    </div>
-                </div>
-            </div>
+}
 
-            
-            <div class="not-header"> 
-                
-                <div class="input-word">
-                    <input type="text" placeholder="Search for any word ..." name="word" id="word" class="word1">
-                    <!-- <img class="image" src="https://em-content.zobj.net/thumbs/160/apple/354/magnifying-glass-tilted-left_1f50d.png" alt=""> -->
-                    <div class="image" >🔍</div>
-                </div>
-                <div class="word-info">
-                    <div class="word-again">
-                    </div>
-                    <div class="listen">
-                    </div>
-                </div>
-                
-                <div class="word-phonetic">
-                </div>
-                
-                <div id="meaning">
-                    <div class="meaning-type">
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="init" id="initial">
-                <!-- <img class="books" src="📚" alt=""> -->
-                <div class="books">
-                    <!-- <img src="./images/books.png" alt=""> -->
-                    <img src="https://em-content.zobj.net/thumbs/120/apple/354/books_1f4da.png" alt="">
-                </div>
-                <p>Hello There! 👋</p>
-                <p style="font-weight:100 ;">Dictionary Web App with theme and font switching options!</p>
-                <div class="links">
-                    <a href="https://github.com/Devvrat1010">
-                        <div class="git">🔗 GitHub Repository </div>
-                    </a>
-                    <a href="https://www.frontendmentor.io/profile/Devvrat1010">
-                        <div class="frontend">🔗 Frontend Mentor Link </div>
-                    </a>
-                    <a href="https://twitter.com/Devvrat1010">
-                        <div class="twitter">🔗 Author Twitter Account </div>
-                    </a>
-                </div>
-            </div>
+.init{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center ;
+    font-size: 17px;
+    font-weight: 100;
+    color: gray;
+    width: 100%;
+    position: relative;
+    bottom: 150px;
+}
 
-            <!-- <div class="footer">
-                Source <a href="https://en.wiktionary.org/wiki/night">https://en.wiktionary.org/wiki/ 
-                    <span></span>
-                    <img src="https://dictionary-web-app-fem.netlify.app/assets/icon-new-window-70a67aa8.svg" alt=""> </a>
-                
-            </div> -->
-        </div>
-        <div class="self-info">
 
-        </div>
-        
-        
-    </body>
-</html>
+.image{
+    
+    height: 40px;
+    position: absolute;
+    right: 10px;
+    border-radius: 100%;
+    padding: 10px;
+    
+}
+.image:hover{
+    /* border-radius: 5px; */
+    cursor: pointer;
+}
+.image:focus{
+    border-style:solid ;
+    border-width: 1px;
+    border-color: black;
+    box-shadow: 1px 1px 5px 0px rgb(164, 69, 237);; 
+}
+.indiv-word-dark{
+    color: white;
+}
+.input-word{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    background-color: rgb(244, 244, 244);
+}
+.indiv-word:hover{
+    cursor: pointer;
+}
+
+.light{
+    transition: 500ms;
+    background-color: white;
+    color: black;
+}
+.links{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+.links > div{
+    height: fit-content;
+
+}
+.links > div:hover{
+    cursor: pointer;
+    transition: 400ms;
+    text-decoration: underline;
+}
+.listen{
+    height: 100px;
+    width: 100px;
+    background-size: cover;
+    margin-right: 70px;
+    margin-bottom: 10px;
+}
+.listen:hover{
+    cursor: pointer;
+}
+
+.main{
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: fit-content; */
+    flex-direction: column;
+    padding-bottom: 100px;
+    width: fit-content;
+}
+.means{
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-left: 6px;
+    width: fit-content;
+    padding: 10px;    
+    border-radius: 5px;
+    height: fit-content;
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 500;
+    color: black;
+}
+.meaning-main{
+    font-size: 20px;
+    font-weight: 100;
+    color: gray;
+    /* cursor: pointer; */
+}
+.more{
+    transition: 300ms;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 500;
+    font-style: italic;
+    color: rgb(145, 123, 93);
+}
+.more:hover{
+    text-decoration: underline;
+    cursor: pointer;
+    color: rgb(164, 69, 237);
+}
+.moon{
+    transition: 500ms;
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+    background-image: url("https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTD37KJrkEAkZVukGRT7mL0lpcQOPHLoYgNbQbyYSaYWIp42418");
+    background-size: cover;
+}
+
+
+.not-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.slider{
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+}
+
+
+.slider-active{
+    /* background-image- */
+    /* font-weight: ; */
+    transition: 300ms;
+    transform: translateX(30px);
+}
+.slider-deactive{
+    transition: 300ms;
+    transform: translateX(0px);
+}
+.sun{
+    transition: 500ms;
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+    background-image: url("https://em-content.zobj.net/thumbs/120/twitter/322/sun_2600-fe0f.png");
+    background-size: cover;
+    
+}
+.site{
+    margin-left: 10px;
+}
+.synonymsWrapper{
+    display: flex;
+    /* flex-direction: column; */
+}
+.synonyms{
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: 100;
+    color: gray;
+}
+.synonyms-text{
+    
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.synonyms-word{
+    font-size: 20px;
+    font-weight: 500;
+    color: rgb(164, 69, 237);
+    width: fit-content;
+}
+.synonyms-word:hover{
+    transition: 300ms;
+    color:rgb(101, 159, 13) ;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.type{
+    color: rosybrown;
+    font-style: italic;
+}
+
+
+.word1{
+    font-family: 'Roboto', sans-serif;
+    font-weight: bolder;
+    height: 40px;
+    border-radius:15px ;
+    width: 760px;
+    font-size: 25px;
+    padding: 20px;
+    border-width: 0;
+    
+    background-color: rgb(244, 244, 244);
+    
+}
+.word1:hover {
+    box-shadow: 0px 0px 10px 0px;
+    transition: 200ms;
+    cursor: pointer;
+    
+}
+.word1:focus{
+    border: none;
+    box-shadow: 0px 0px 5px 2px rgb(164, 69, 237);
+    outline-color:  rgb(164, 69, 237);
+    outline-style: solid;
+    outline-width:1px ;
+}
+.word-info{
+
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 50px;
+    width: 800px;
+    height: 70px;
+    border-radius: 10px 10px 0 0;
+}
+
+.word-again{
+    padding-bottom: 30px;
+    font-size: 70px;
+    margin-left: 10px;
+    height: fit-content;
+}
+.word-phonetic{
+    font-size: 30px;
+    margin-bottom: 30px;
+    padding: 0 0 10px 10px;
+    height: fit-content;
+    color: rgb(164, 69, 237);
+    width: 790px;
+    border-radius: 0 0 10px 10px;
+}
+
+
+
+
+/* *************************** id selectors ***************************** */
+
+#meaning{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    gap: 50px;
+    justify-content: space-around;
+}
+#text{
+    width: 800px;
+}
+.speaker:hover{
+    cursor: pointer;
+}
