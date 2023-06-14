@@ -11,9 +11,29 @@ const wordAgain=document.getElementsByClassName("word-again")[0]
 const main=document.getElementsByClassName("main")[0]
 const init=document.getElementsByClassName("init")[0]
 
-alet count=0
+console.log(image)
+let count=0
+
+function change_theme(c){
+
+    const indivWord=document.getElementsByClassName("indiv-word")
+    if (c==0){   
+        for (let i=0;i<indivWord.length;i++){
+            console.log("indivWord[i]")
+            console.log(indivWord[i])
+            indivWord[i].style.color="white"
+        }
+    }
+    else{
+        for (let i=0;i<indivWord.length;i++){
+            indivWord[i].style.color="black"
+        }
+    }
+    return
+}
 theme.addEventListener("click",()=>{
-    const indivWord=document.getElementsByClassName("indiv-word")[0]
+    console.log(count)
+    const indivWord=document.getElementsByClassName("indiv-word")
     if (count%2==0){
         body.classList.add("dark")
         body.classList.remove("light")
@@ -23,7 +43,8 @@ theme.addEventListener("click",()=>{
         image2.classList.remove("sun")
         theme.style.backgroundColor="black"
         theme.style.boxShadow="0px 0px 5px 0px rgb(164, 69, 237)"
-        indivWord.style.color="white"
+        wordAgain.style.color="black"
+        change_theme(0)
     }
     else{
         body.classList.add("light")
@@ -34,10 +55,9 @@ theme.addEventListener("click",()=>{
         slider.classList.remove("slider-active")
         theme.style.backgroundColor="white"
         theme.style.boxShadow="0px 0px 5px 0px rgb(164, 69, 237)"
-        indivWord.style.color="black"
-
-       }
-    count+=1
+        change_theme(1)
+}
+count+=1
 })
 
 async function meaning(word){
@@ -45,6 +65,7 @@ async function meaning(word){
     means.replaceChildren()
     let finalWord=""
     for (let i=0;i<word.length;i++){
+        console.log(typeof(word[i]))
         if (alpha.includes(word[i].toLowerCase()) || word[i]==" "){
             finalWord+=word[i]
         }
@@ -74,6 +95,7 @@ async function meaning(word){
         const wordPhonetic=document.getElementsByClassName("word-phonetic")[0]
         wordPhonetic.style.backgroundColor="aliceblue"
 
+        // const wordInfo=
         listen.addEventListener("click",()=>{
             pronounce(word)
         })
@@ -124,6 +146,7 @@ async function meaning(word){
                     for (let k=3;k<meanings[i].definitions.length;k++){
                         showMeaning(i,meanings,newDiv,k)   
                     }
+                    // synonyms(i,meanings,newDiv)
                     if (meanings[i].synonyms.length>0){
                         synonyms(i,meanings,newDiv)
                     }
@@ -175,6 +198,7 @@ function synonyms(i,meanings,newDiv,j){
     let arr=meanings[i].synonyms
     let stri=meanings[i].synonyms.toString()
     
+    // 
     let synonymsText=individualWord(meanings,i)
     synonymsWrapper.appendChild(synonyms)
     synonymsWrapper.appendChild(synonymsText)
@@ -263,6 +287,7 @@ word.addEventListener("keydown",(event)=>{
     }
 })
 body.addEventListener("keydown",(event)=>{
+    // main.removeChildinti
     if (event.key=="m"){
         pronounce(word.value)
     }
@@ -270,4 +295,5 @@ body.addEventListener("keydown",(event)=>{
 
 notHeader.addEventListener("click",(event)=>{
     theme.style.boxShadow="none"
+    // image.style.boxShadow="none"
 })
