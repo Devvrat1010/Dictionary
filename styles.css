@@ -2,10 +2,9 @@ a:visited{
     color: gray;
 }
 body{
-    font-family: 'Roboto', sans-serif;
+    
     font-weight: bolder;
     font-size: 30px;
-    /* width: fit-content; */
     margin: auto;
     height: 100vh;
 }
@@ -58,6 +57,8 @@ ul{
     border-radius: 7px;  
     justify-content: center;
     align-items: center;
+    justify-self: end;
+    /* justify-items: flex-end; */
     box-shadow: 0px 0px 5px 0px rgb(164, 69, 237);
 }
 
@@ -67,6 +68,21 @@ ul{
 .change-theme:focus{
     box-shadow: 0px 0px 5px 0px rgb(164, 69, 237);
     /* outline: none; */
+}
+.change-font{
+    font-weight: 100;
+    /* justify-self: flex-end; */
+    margin-right: 10px;
+    border-radius: 5px;
+    background-color: aqua;
+    /* border-width: 2; */
+    box-shadow: 1px 1px 5px 2px "black";
+}
+.change-font:focus{
+    font-weight: 100;
+    /* justify-self: flex-end; */
+    margin-right: 10px;
+    border-radius: 5px;
 }
 
 .dark{
@@ -111,7 +127,7 @@ ul{
 .header{
     margin: auto;
     margin-top: 50px;
-    width: 800px ;
+    width: 100% ;
     display: flex;
     margin-bottom: 50px;
     justify-content: space-between;
@@ -160,7 +176,9 @@ ul{
     justify-content: center;
     align-items: center;
     border-radius: 15px;
-    background-color: rgb(244, 244, 244);
+
+    /* background-color: #3b3b3b; */
+    opacity: 1;
 }
 .indiv-word:hover{
     cursor: pointer;
@@ -257,7 +275,9 @@ ul{
     justify-content: center;
     align-items: center;
 }
-
+.right{
+    display: flex;
+}
 
 .slider{
     background-color: white;
@@ -334,8 +354,9 @@ ul{
     font-size: 25px;
     padding: 20px;
     border-width: 0;
-    
-    background-color: rgb(244, 244, 244);
+    background-color: #e8e8e8;
+    /* background-color: #3b3b3b; */
+    /* background-color: rgb(244, 244, 244); */
     
 }
 .word1:hover {
