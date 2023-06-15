@@ -12,10 +12,39 @@ const main=document.getElementsByClassName("main")[0]
 const init=document.getElementsByClassName("init")[0]
 const changeFont=document.getElementsByClassName("change-font")[0]
 const font=body.style.fontFamily
+const fonts=document.getElementsByClassName("fonts")[0]
+const inputWord=document.getElementsByClassName("input-word")[0]
+const currFont=document.getElementsByClassName("curr-font")
 
-console.log("document.style.fontFamily")
+console.log("currFont")
+changeFont.innerHTML=currFont[0].innerText + ""
+
+fonts.style.opacity="0"
+
+for (let i=0;i<currFont.length;i++){
+    currFont[i].addEventListener("click",()=>{
+        body.style.fontFamily=currFont[i].style.fontFamily
+        changeFont.innerHTML=currFont[i].innerText+""
+        
+        changeFont.style.boxShadow="0 0 5px 0px rgb(164, 69, 237)"
+    })
+}
 
 
+changeFont.addEventListener("click",function changing(){
+    if (inputWord.contains(fonts)){
+        inputWord.removeChild(fonts)
+        changeFont.style.boxShadow="none"
+        fonts.style.opacity="1"
+        
+    }
+    else{
+        changeFont.style.boxShadow="0 0 5px 0px rgb(164, 69, 237)"
+        inputWord.appendChild(fonts)
+        fonts.style.opacity="1"
+
+    }
+})
 
 function change_theme(){
     const word1=document.getElementsByClassName("word1")[0]
@@ -52,7 +81,6 @@ function change_theme(){
         }
     }
 }
-// const sex=change_theme(1)
 theme.addEventListener("click",function changing_theme(){
 
     const indivWord=document.getElementsByClassName("indiv-word")
@@ -87,7 +115,6 @@ async function meaning(word){
     means.replaceChildren()
     let finalWord=""
     for (let i=0;i<word.length;i++){
-        console.log(typeof(word[i]))
         if (alpha.includes(word[i].toLowerCase()) || word[i]==" "){
             finalWord+=word[i]
         }
@@ -124,8 +151,6 @@ async function meaning(word){
         })
 
         const meanings=curr[0].meanings
-        console.log(meanings)
-        console.log(meanings.length)
         for (let i=0;i<meanings.length;i++){
             let newDiv=document.createElement("div")
             newDiv.classList.add("meaning-type")
@@ -144,8 +169,6 @@ async function meaning(word){
             let more="false"
             newDiv.appendChild(meaningMain)
             let meanLength=meanings[i].definitions.length
-            console.log("mean length ")
-            console.log(meanLength)
             if (meanings[i].definitions.length>3){
                 displayLength=3
                 more="true"
@@ -169,7 +192,6 @@ async function meaning(word){
                     for (let k=3;k<meanings[i].definitions.length;k++){
                         showMeaning(i,meanings,newDiv,k)   
                     }
-                    // synonyms(i,meanings,newDiv)
                     if (meanings[i].synonyms.length>0){
                         synonyms(i,meanings,newDiv)
                     }
@@ -187,7 +209,6 @@ async function meaning(word){
 
         
         wordAgain1.innerText=mainWord.value
-        console.log("error ",error)
         let newDiv=document.createElement("div")
         newDiv.classList.add("means")
         
@@ -241,8 +262,6 @@ function individualWord(meanings,i){
         synonymsText.appendChild(synonymsWord)
     
         synonymsWord.addEventListener("click",()=>{
-            console.log("synonyms word")
-            console.log(synonymsWord.innerText)
     
             meaning(synonymsWord.innerText.toString())
         })
@@ -257,14 +276,11 @@ function showMeaning(i,meanings,newDiv,j){
         meaningType.removeChild(synonymsWrapper)
     }
     catch(error){
-        console.log("error")
     }
     let newDiv2=document.createElement("div")
     
     newDiv2.classList.add("means")
     let arr=meanings[i].definitions[j].definition.split(" ")
-    console.log("arr")
-    console.log(arr)
     for (let x=0;x<arr.length;x++){
         let indivWord=document.createElement("div")
         indivWord.classList.add("indiv-word")
@@ -313,13 +329,21 @@ word.addEventListener("keydown",(event)=>{
     }
 })
 body.addEventListener("keydown",(event)=>{
-    // main.removeChildinti
     if (event.key=="m"){
         pronounce(word.value)
     }
 })
-
+init.addEventListener("click",()=>{
+    removeFont()
+   
+})
 notHeader.addEventListener("click",(event)=>{
     theme.style.boxShadow="none"
-    // image.style.boxShadow="none"
+    removeFont()
 })
+function removeFont(){
+    if (inputWord.contains(fonts)){
+        inputWord.removeChild(fonts)
+        changeFont.style.boxShadow="none"
+    }
+}
