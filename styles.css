@@ -4,7 +4,7 @@ a:visited{
 body{
     
     font-weight: bolder;
-    font-size: 30px;
+    font-size: 25px;
     margin: auto;
     height: 100vh;
 }
@@ -69,20 +69,18 @@ ul{
     box-shadow: 0px 0px 5px 0px rgb(164, 69, 237);
     /* outline: none; */
 }
+
 .change-font{
+    display: flex;
+    align-items: center;
     font-weight: 100;
-    /* justify-self: flex-end; */
     margin-right: 10px;
     border-radius: 5px;
-    background-color: aqua;
-    /* border-width: 2; */
-    box-shadow: 1px 1px 5px 2px "black";
+    padding: 0 10px 0 10px;
 }
-.change-font:focus{
-    font-weight: 100;
-    /* justify-self: flex-end; */
-    margin-right: 10px;
-    border-radius: 5px;
+.change-font:hover{
+    cursor: pointer;
+
 }
 
 .dark{
@@ -98,6 +96,23 @@ ul{
     margin-left: 55px;
     color: rgb(158, 157, 157);
 
+}
+
+.fonts{    
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100px;
+    position: absolute;
+    font-size: 20px;
+    right: 180px;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 0 5px 0px;
+}
+.fonts:hover{
+    cursor: pointer;
 }
 .footer{
     align-self: flex-start;
@@ -117,12 +132,8 @@ ul{
     background-color: black;
     position: sticky;
     top: 100%;
-    /* position: absolute; */
-    /* position: relative; */
 }
-/* .footer:focus{
-    color: aquamarine;
-} */
+
 
 .header{
     margin: auto;
@@ -277,6 +288,7 @@ ul{
 }
 .right{
     display: flex;
+    position: relative;
 }
 
 .slider{
