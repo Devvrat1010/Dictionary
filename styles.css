@@ -350,6 +350,35 @@ ul{
     cursor: pointer;
     text-decoration: underline;
 }
+.antonymsWrapper{
+    display: flex;
+    /* flex-direction: column; */
+}
+.antonyms{
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: 100;
+    color: gray;
+}
+.antonyms-text{
+    
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.antonyms-word{
+    font-size: 20px;
+    font-weight: 500;
+    color: rgb(164, 69, 237);
+    width: fit-content;
+}
+.antonyms-word:hover{
+    transition: 300ms;
+    color:rgb(101, 159, 13) ;
+    cursor: pointer;
+    text-decoration: underline;
+}
 
 .type{
     color: rosybrown;
