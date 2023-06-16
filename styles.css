@@ -205,16 +205,16 @@ ul{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
 
 }
-.links > div{
+.links > *{
     height: fit-content;
-
+    text-decoration: none;
 }
-.links > div:hover{
-    cursor: pointer;
-    transition: 400ms;
+.links > *:hover{
     text-decoration: underline;
+    transition: 1000ms;
 }
 .listen{
     height: 100px;
