@@ -15,6 +15,8 @@ const font=body.style.fontFamily
 const fonts=document.getElementsByClassName("fonts")[0]
 const inputWord=document.getElementsByClassName("input-word")[0]
 const currFont=document.getElementsByClassName("curr-font")
+const listen=document.getElementsByClassName("listen")[0]
+
 
 console.log("currFont")
 changeFont.innerHTML=currFont[0].innerText + ""
@@ -55,8 +57,8 @@ function change_theme(){
     if (body.classList.contains("dark")){   
         for (let i=0;i<indivWord.length;i++){
             word1.style.backgroundColor="#3b3b3b"
-            wordAgain.style.color="white"
-            indivWord[i].style.color="white"
+            wordAgain.style.color="#b5afaf"
+            indivWord[i].style.color="#b5afaf"
             if (main.contains(init)){
                 continue
             }
@@ -124,6 +126,8 @@ async function meaning(word){
     try{
         const currentWord=document.getElementById("word")
         currentWord.value=word
+        console.log("currentWord")
+        console.log(currentWord.value)
         const mean=await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/`+word)
         let res=await mean.json()
         const curr=res
@@ -136,7 +140,6 @@ async function meaning(word){
         const phonetic=document.getElementsByClassName("word-phonetic")[0]
         phonetic.textContent=curr[0].phonetic
 
-        const listen=document.getElementsByClassName("listen")[0]
         listen.style.backgroundImage="url('https://em-content.zobj.net/thumbs/120/microsoft/319/speaker-high-volume_1f50a.png')"
 
         const wordInfo=document.getElementsByClassName("word-info")[0]
@@ -144,11 +147,8 @@ async function meaning(word){
         
         const wordPhonetic=document.getElementsByClassName("word-phonetic")[0]
         wordPhonetic.style.backgroundColor="aliceblue"
-
-        // const wordInfo=
-        listen.addEventListener("click",()=>{
-            pronounce(word)
-        })
+        console.log("check")
+        
 
         const meanings=curr[0].meanings
         for (let i=0;i<meanings.length;i++){
@@ -195,11 +195,17 @@ async function meaning(word){
                     if (meanings[i].synonyms.length>0){
                         synonyms(i,meanings,newDiv)
                     }
+                    if (meanings[i].antonyms.length>0){
+                        antonyms(i,meanings,newDiv)
+                    }
                     
                 })
             }
             if (meanings[i].synonyms.length>0){
                 synonyms(i,meanings,newDiv)
+            }
+            if (meanings[i].antonyms.length>0){
+                antonyms(i,meanings,newDiv)
             }
         }        
     }
@@ -211,17 +217,6 @@ async function meaning(word){
         wordAgain1.innerText=mainWord.value
         let newDiv=document.createElement("div")
         newDiv.classList.add("means")
-        
-        // if (mainWord.value.toLowerCase()=="kumail"){
-        //     newDiv.textContent="Aatankwadi 💣"
-        //     newDiv.style.color="green"
-        //     newDiv.style.fontSize="50px"
-
-        //     let bombDiv=document.createElement("div")
-        //     bombDiv.classList.add("bomb")
-        //     means.append(newDiv)
-        //     return
-        // }
 
         newDiv.textContent="Whoops !!! Word does not exist in the dictionary"
         newDiv.style.color="red"
@@ -230,7 +225,7 @@ async function meaning(word){
     }
 }
 
-function synonyms(i,meanings,newDiv,j){
+function synonyms(i,meanings,newDiv){
     let synonymsWrapper=document.createElement("div")
     synonymsWrapper.classList.add("synonyms-wrapper")
 
@@ -250,6 +245,26 @@ function synonyms(i,meanings,newDiv,j){
 
     
 }
+function antonyms(i,meanings,newDiv){
+    let antoynymsWrapper=document.createElement("div")
+    antoynymsWrapper.classList.add("antonyms-wrapper")
+
+    let antonyms=document.createElement("div")
+    antonyms.classList.add("antonyms")
+    
+    antonyms.textContent="antonyms"
+    let arr=meanings[i].antonyms
+    let stri=meanings[i].antonyms.toString()
+    
+    // 
+    let antonymsText=individualAnty(meanings,i)
+    antoynymsWrapper.appendChild(antonyms)
+    antoynymsWrapper.appendChild(antonymsText)
+    newDiv.appendChild(antoynymsWrapper)
+    change_theme()
+
+    
+}
 
 function individualWord(meanings,i){
 
@@ -260,7 +275,6 @@ function individualWord(meanings,i){
         synonymsWord.classList.add("synonyms-word")
         synonymsWord.textContent=meanings[i].synonyms[x]
         synonymsText.appendChild(synonymsWord)
-    
         synonymsWord.addEventListener("click",()=>{
     
             meaning(synonymsWord.innerText.toString())
@@ -268,12 +282,35 @@ function individualWord(meanings,i){
     }
     return synonymsText
 }
+function individualAnty(meanings,i){
+
+    let antonymsText=document.createElement("div")
+    antonymsText.classList.add("antonyms-text")
+    for (let x=0;x<meanings[i].antonyms.length;x++){
+        let antonymsWord=document.createElement("div")
+        antonymsWord.classList.add("antonyms-word")
+        antonymsWord.textContent=meanings[i].antonyms[x]
+        antonymsText.appendChild(antonymsWord)
+        antonymsWord.addEventListener("click",()=>{
+    
+            meaning(antonymsWord.innerText.toString())
+        })
+    }
+    return antonymsText
+}
 
 function showMeaning(i,meanings,newDiv,j){
     try{
         const meaningType=document.getElementsByClassName("meaning-type")[i]
         let synonymsWrapper=document.getElementsByClassName("synonyms-wrapper")[i]
         meaningType.removeChild(synonymsWrapper)
+    }
+    catch(error){
+    }
+    try{
+        const meaningType=document.getElementsByClassName("meaning-type")[i]
+        let antonymsWrapper=document.getElementsByClassName("antonyms-wrapper")[i]
+        meaningType.removeChild(antonymsWrapper)
     }
     catch(error){
     }
@@ -310,11 +347,20 @@ function showMeaning(i,meanings,newDiv,j){
 
 async function pronounce(word){          
         const hear=await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/`+word)
+        console.log("word")
+        console.log(word)
         let response=await hear.json()
         response=response[0].phonetics[0].audio
+        console.log("response")
+        console.log(response)
         response=new Audio(response)
         response.play()
+
 }   
+
+listen.addEventListener("click",()=>{
+    pronounce(word.value)
+})
 
 image.addEventListener("click",()=>{    
     image.style.boxShadow="0px 0px 5px 0px rgb(164, 69, 237)"
@@ -324,7 +370,10 @@ image.addEventListener("click",()=>{
 })
 word.addEventListener("keydown",(event)=>{
     if (event.key=="Enter"){
-        main.removeChild(init)
+        if (main.contains(init)){
+            
+            main.removeChild(init)
+        }
         meaning(word.value)
     }
 })
