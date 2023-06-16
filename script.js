@@ -16,9 +16,8 @@ const fonts=document.getElementsByClassName("fonts")[0]
 const inputWord=document.getElementsByClassName("input-word")[0]
 const currFont=document.getElementsByClassName("curr-font")
 const listen=document.getElementsByClassName("listen")[0]
+const links=document.getElementsByClassName("links")[0]
 
-
-console.log("currFont")
 changeFont.innerHTML=currFont[0].innerText + ""
 
 fonts.style.opacity="0"
@@ -26,8 +25,8 @@ fonts.style.opacity="0"
 for (let i=0;i<currFont.length;i++){
     currFont[i].addEventListener("click",()=>{
         body.style.fontFamily=currFont[i].style.fontFamily
+        word.style.fontFamily=currFont[i].style.fontFamily
         changeFont.innerHTML=currFont[i].innerText+""
-        
         changeFont.style.boxShadow="0 0 5px 0px rgb(164, 69, 237)"
     })
 }
@@ -37,15 +36,15 @@ changeFont.addEventListener("click",function changing(){
     if (inputWord.contains(fonts)){
         inputWord.removeChild(fonts)
         changeFont.style.boxShadow="none"
-        fonts.style.opacity="1"
         
     }
     else{
         changeFont.style.boxShadow="0 0 5px 0px rgb(164, 69, 237)"
         inputWord.appendChild(fonts)
-        fonts.style.opacity="1"
-
+        // fonts.style.opacity="1"
+        
     }
+    fonts.style.opacity="1"
 })
 
 function change_theme(){
@@ -59,6 +58,8 @@ function change_theme(){
             word1.style.backgroundColor="#3b3b3b"
             wordAgain.style.color="#b5afaf"
             indivWord[i].style.color="#b5afaf"
+            changeFont.style.color="#b5afaf"
+
             if (main.contains(init)){
                 continue
             }
@@ -72,6 +73,9 @@ function change_theme(){
         for (let i=0;i<indivWord.length;i++){
             word1.style.backgroundColor="#e8e8e8"
             wordAgain.style.color="black"
+            changeFont.style.color="black"
+            indivWord[i].style.color="black"
+
             if (main.contains(init)){
                 continue
             }
@@ -79,7 +83,6 @@ function change_theme(){
                 wordPhonetic.style.backgroundColor="#e8e8e8"
                 wordInfo.style.backgroundColor="#e8e8e8"
             }
-            indivWord[i].style.color="black"
         }
     }
 }
@@ -126,8 +129,6 @@ async function meaning(word){
     try{
         const currentWord=document.getElementById("word")
         currentWord.value=word
-        console.log("currentWord")
-        console.log(currentWord.value)
         const mean=await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/`+word)
         let res=await mean.json()
         const curr=res
@@ -146,8 +147,7 @@ async function meaning(word){
         wordInfo.style.backgroundColor="aliceblue"
         
         const wordPhonetic=document.getElementsByClassName("word-phonetic")[0]
-        wordPhonetic.style.backgroundColor="aliceblue"
-        console.log("check")
+        // wordPhonetic.style.backgroundColor="aliceblue"
         
 
         const meanings=curr[0].meanings
@@ -208,6 +208,13 @@ async function meaning(word){
                 antonyms(i,meanings,newDiv)
             }
         }        
+        links.fontFamily=font
+        links.style.backgroundColor="black"
+        links.style.height="30px"
+        links.style.fontSize="15px"
+        links.style.position="fixed";
+        links.style.bottom="0";
+        body.appendChild(links)
     }
     catch (error){
         const mainWord=document.getElementById("word")
@@ -231,6 +238,8 @@ function synonyms(i,meanings,newDiv){
 
     let synonyms=document.createElement("div")
     synonyms.classList.add("synonyms")
+    synonyms.style.fontWeight="600"
+    synonyms.style.color="rgb(164, 69, 237)"
     
     synonyms.textContent="Synonyms"
     let arr=meanings[i].synonyms
@@ -242,7 +251,7 @@ function synonyms(i,meanings,newDiv){
     synonymsWrapper.appendChild(synonymsText)
     newDiv.appendChild(synonymsWrapper)
     change_theme()
-
+    
     
 }
 function antonyms(i,meanings,newDiv){
@@ -251,8 +260,10 @@ function antonyms(i,meanings,newDiv){
 
     let antonyms=document.createElement("div")
     antonyms.classList.add("antonyms")
+    antonyms.style.color="rgb(164, 69, 237)"
     
-    antonyms.textContent="antonyms"
+    antonyms.textContent="Antonyms"
+    antonyms.style.fontWeight="600"
     let arr=meanings[i].antonyms
     let stri=meanings[i].antonyms.toString()
     
@@ -347,12 +358,8 @@ function showMeaning(i,meanings,newDiv,j){
 
 async function pronounce(word){          
         const hear=await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/`+word)
-        console.log("word")
-        console.log(word)
         let response=await hear.json()
         response=response[0].phonetics[0].audio
-        console.log("response")
-        console.log(response)
         response=new Audio(response)
         response.play()
 
